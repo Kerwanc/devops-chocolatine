@@ -1,4 +1,5 @@
 name: Chocolatine
+run-name: ${{ github.actor }} chocolatine
 
 on:
   push:
@@ -25,10 +26,11 @@ jobs:
           xargs < files_to_check.txt
           check.sh xargs /tmp
       - name: report result
-        run: NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
-            if [ $NB_ERROR -gt 0]; then
-              exit 1
-            fi
+        run: |
+          NB_ERROR=$(cat /tmp/coding-style-reports.log | wc -l)
+          if [ $NB_ERROR -gt 0]; then
+            exit 1
+          fi
 
   check_program_compilation:
     runs-on: ubuntu-latest
@@ -36,7 +38,7 @@ jobs:
     container: epitechcontent/epitest-docker:latest
     needs: check_coding_style
     steps:
-
+    
       - name: checkout
         uses: actions/checkout@v4
         with:
