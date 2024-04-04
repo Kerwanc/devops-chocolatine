@@ -53,12 +53,12 @@ jobs:
 
       - name: check file
         run: |
-        for file in ${{ vars.EXECUTABLES }};do
-           if [ ! -x "$file" ]; then
-            echo "$file doesn't exist"
-            exit 1
-          fi
-        done
+          for file in ${{ vars.EXECUTABLES }}; do
+            if [ ! -x "$file" ]; then
+              echo "file $file doesn't exist"
+              exit 1
+            fi
+          done
 
   run_tests:
     runs-on: ubuntu-latest
