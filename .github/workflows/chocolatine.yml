@@ -39,3 +39,22 @@ jobs:
     container: epitechcontent/epitest-docker:latest
     needs: check_coding_style
     steps:
+
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          repository: ''
+
+      - name: compile
+        run: make
+
+      - name: clean
+        run: make clean
+
+      - name: check file
+        for file in {{ vars.EXECUTABLE }}
+          if [ ! -x "$file"]
+            echo "$file doesn't exist"
+            exit 1
+          fi
+        done
