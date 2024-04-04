@@ -1,0 +1,49 @@
+name: Chocolatine
+
+on:
+  push:
+    branches-ignore:
+      - 'ga-ignore-*'
+    paths-ignore:
+      - '.github/workflows/chocolatine.yml'
+  pull_request:
+    branches-ignore:
+      - 'ga-ignore-*'
+
+env:
+  MIRROR_URL: 
+  EXECUTABLE:
+
+jobs:
+  test_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "test"
+
+  check_coding_style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: coding-style
+      - run: check.sh . .
+
+  check_program_compilation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: compile
+        run: make
+        timeout-minutes: 2
+
+      - name: clean
+        run: make clean
+
+  run_tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: run tests
+        run: make tests_run
+        timeout-minutes: 2
+
+  push_to_mirror:
+    runs-on: ubuntu-latest
