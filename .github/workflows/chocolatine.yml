@@ -52,8 +52,9 @@ jobs:
         run: make clean
 
       - name: check file
-        for file in {{ vars.EXECUTABLE }}; do
-          if [ ! -x "$file" ]; then
+        run: |
+        for file in {{ vars.EXECUTABLE }};do
+           if [ ! -x "$file" ]; then
             echo "$file doesn't exist"
             exit 1
           fi
