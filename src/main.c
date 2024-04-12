@@ -11,7 +11,7 @@
 
 int main(int ac, char const *[])
 {
-    if(ac != 1) {
+    if (ac != 1) {
         return 84;
     }
     printf("%d\n", add(1, 2));
